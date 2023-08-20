@@ -7,7 +7,7 @@ env:
   CONTAINERAPPS_ENVIRONMENT: managedEnvironment-rgaca-824e
   RESOURCE_GROUP: rg-aca
 
-on: workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   build-push-container-image:

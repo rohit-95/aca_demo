@@ -1,4 +1,3 @@
-# src: .github/workflows/
 name: Build and deploy a container to an Azure Container Apps - ACA
 
 env:

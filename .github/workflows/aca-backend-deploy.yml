@@ -1,6 +1,6 @@
 name: Build and deploy a container to an Azure Container Apps - ACA
 env:
-  IMAGE_NAME: acrdemoaca.azurecr.io/backend-githubactions
+  IMAGE_NAME: backend-githubactions
   CONTAINERAPPS_APP: githubactions-backend
   CONTAINERAPPS_ENVIRONMENT: managedEnvironment-rgaca-824e
   RESOURCE_GROUP: rg-aca
@@ -20,8 +20,8 @@ jobs:
           password: '${{ secrets.ACR_PASSWORD }}'
       - name: Build and Push
         run: |
-          docker build . -t ${{env.IMAGE_NAME}}:${{ github.run_number }}
-          docker push ${{env.IMAGE_NAME}}:${{ github.run_number }}
+          docker build . -t acrdemoaca.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_number }}
+          docker push acrdemoaca.azurecr.io/${{env.IMAGE_NAME}}:${{ github.run_number }}
   deploy-to-container-apps:
     permissions:
       contents: none
@@ -35,7 +35,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           registryUrl: acrdemoaca.azurecr.io
-          imageToDeploy: ${{ env.IMAGE_NAME }}:${{ github.run_number }}'
+          imageToDeploy: acrdemoaca.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.run_number }}'
           targetPort: 3500
           ingress: external
           containerAppName: '${{ env.CONTAINERAPPS_APP }}'
